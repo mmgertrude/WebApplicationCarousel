@@ -1,0 +1,125 @@
+﻿
+@using DataAccess.Models
+
+@model ViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+<h2>@ViewBag.Message</h2>
+
+
+<div class="card-body">
+
+    <ul id="slides">
+        <li class="slide showing">Slide 1</li>
+        <li class="slide">Slide 2</li>
+        <li class="slide">Slide 3</li>
+        <li class="slide">Slide 4</li>
+        <li class="slide">Slide 5</li>
+    </ul>
+
+
+
+    <!-- start of Projects Model content-->
+    <div id="dynamicContent">
+        <p><b>Projects List</b></p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        StartDate
+                    </th>
+                    <th>
+                        DueDate
+                    </th>
+                    <th>
+                        Projectname
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var project in Model.Projects)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => project.StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => project.DueDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => project.Projectname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => project.Description)
+                        </td>
+                        @*
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.ProjectId">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.ProjectId">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.ProjectId">Delete</a>
+                            </td>
+                        *@
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <!-- start of Employee Model content-->
+    <div id="employees">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        EmpId
+                    </th>
+                    <th>
+                        Empname
+                    </th>
+                    <th>
+                        StartDate
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employee in Model.Employees)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => employee.EmpId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => employee.Empname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => employee.StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => employee.JobDescription)
+                        </td>
+                        @*
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.ProjectId">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.ProjectId">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.ProjectId">Delete</a>
+                            </td>
+                        *@
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
