@@ -1,0 +1,59 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+@using DataAccess.Models
+
+@model ViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+   
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div id="employees">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(Model => Model.Employees.FirstOrDefault().EmpId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(Model => Model.Employees.FirstOrDefault().Empname)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(Model => Model.Employees.FirstOrDefault().StartDate)
+                              
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(Model => Model.Employees.FirstOrDefault().JobDescription)
+                                
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var employee in Model.Employees)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => employee.EmpId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => employee.Empname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => employee.StartDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => employee.JobDescription)
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>

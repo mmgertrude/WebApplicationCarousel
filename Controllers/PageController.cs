@@ -9,37 +9,22 @@ using DataAccess.Models;
 
 namespace ApplicationCarousel.Controllers
 {
-    public class ProjectController : Controller
+    public class PageController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ProjectController(ApplicationDbContext context)
+        public PageController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Project
+        // GET: Page
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Projects.ToListAsync());
+            return View(await _context.Pages.ToListAsync());
         }
 
-
-        //trying to have many models in a single view
-        public async Task<IActionResult> ChangeContent()
-        {
-            ViewBag.Message = "Task 2: Phase One";
-            ViewModel mymodel = new ViewModel();
-            mymodel.Projects = await _context.Projects.ToListAsync();
-            mymodel.Employees = await _context.Employees.ToListAsync();
-            return View(mymodel);
-        }
-
-
-
-
-
-        // GET: Project/Details/5
+        // GET: Page/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -47,39 +32,39 @@ namespace ApplicationCarousel.Controllers
                 return NotFound();
             }
 
-            var project = await _context.Projects
-                .FirstOrDefaultAsync(m => m.ProjectId == id);
-            if (project == null)
+            var page = await _context.Pages
+                .FirstOrDefaultAsync(m => m.PageId == id);
+            if (page == null)
             {
                 return NotFound();
             }
 
-            return View(project);
+            return View(page);
         }
 
-        // GET: Project/Create
+        // GET: Page/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Project/Create
+        // POST: Page/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StartDate,DueDate,ProjectId,Projectname,Description")] Project project)
+        public async Task<IActionResult> Create([Bind("PageTitle,PageStatus,PageNo,PageId,Description,Content")] Page page)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(project);
+                _context.Add(page);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(project);
+            return View(page);
         }
 
-        // GET: Project/Edit/5
+        // GET: Page/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -87,22 +72,22 @@ namespace ApplicationCarousel.Controllers
                 return NotFound();
             }
 
-            var project = await _context.Projects.FindAsync(id);
-            if (project == null)
+            var page = await _context.Pages.FindAsync(id);
+            if (page == null)
             {
                 return NotFound();
             }
-            return View(project);
+            return View(page);
         }
 
-        // POST: Project/Edit/5
+        // POST: Page/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StartDate,DueDate,ProjectId,Projectname,Description")] Project project)
+        public async Task<IActionResult> Edit(int id, [Bind("PageTitle,PageStatus,PageNo,PageId,Description,Content")] Page page)
         {
-            if (id != project.ProjectId)
+            if (id != page.PageId)
             {
                 return NotFound();
             }
@@ -111,12 +96,12 @@ namespace ApplicationCarousel.Controllers
             {
                 try
                 {
-                    _context.Update(project);
+                    _context.Update(page);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProjectExists(project.ProjectId))
+                    if (!PageExists(page.PageId))
                     {
                         return NotFound();
                     }
@@ -127,10 +112,10 @@ namespace ApplicationCarousel.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(project);
+            return View(page);
         }
 
-        // GET: Project/Delete/5
+        // GET: Page/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -138,30 +123,30 @@ namespace ApplicationCarousel.Controllers
                 return NotFound();
             }
 
-            var project = await _context.Projects
-                .FirstOrDefaultAsync(m => m.ProjectId == id);
-            if (project == null)
+            var page = await _context.Pages
+                .FirstOrDefaultAsync(m => m.PageId == id);
+            if (page == null)
             {
                 return NotFound();
             }
 
-            return View(project);
+            return View(page);
         }
 
-        // POST: Project/Delete/5
+        // POST: Page/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var project = await _context.Projects.FindAsync(id);
-            _context.Projects.Remove(project);
+            var page = await _context.Pages.FindAsync(id);
+            _context.Pages.Remove(page);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProjectExists(int id)
+        private bool PageExists(int id)
         {
-            return _context.Projects.Any(e => e.ProjectId == id);
+            return _context.Pages.Any(e => e.PageId == id);
         }
     }
 }

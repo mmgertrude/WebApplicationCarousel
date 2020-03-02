@@ -1,0 +1,59 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@using DataAccess.Models
+
+@model ViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div id="projects">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(Model => Model.Projects.FirstOrDefault().StartDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(Model => Model.Projects.FirstOrDefault().DueDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(Model => Model.Projects.FirstOrDefault().Projectname)
+                                
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(Model => Model.Projects.FirstOrDefault().Description)
+                                
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var project in Model.Projects)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => project.StartDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => project.DueDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => project.Projectname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => project.Description)
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>

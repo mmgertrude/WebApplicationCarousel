@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DataAccess.Models;
-
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace projectTwo
 {
@@ -29,11 +29,16 @@ namespace projectTwo
         {
              services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-             
 
-            services.AddControllersWithViews();
+            /***********************************/
+            // Enable cookie authentication
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie();
+            /***********************************/
+
+            services.AddControllersWithViews().AddRazorRuntimeCompilation(); 
             services.AddRazorPages();
-                //.AddRazorRuntimeCompilation();
+               
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +54,11 @@ namespace projectTwo
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            /***********************************/
+            app.UseAuthentication();
+            /***********************************/
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -60,7 +70,7 @@ namespace projectTwo
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Page}/{action=Index}/{id?}");
             });
         }
     }
